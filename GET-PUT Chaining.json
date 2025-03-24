@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "f1c91e1a-bbce-47ec-bf3c-d9326a6fe30a",
+		"name": "GET-PUT Chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "1-GetUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonbody =pm.response.json();\r",
+							"const userIDs= jsonbody.map(user=> user.id);\r",
+							"\r",
+							"console.log(\"list of user ids\"+userIDs);\r",
+							"\r",
+							"pm.variables.set(\"user_Ids\", userIDs);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "2-Update A User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const userIds= pm.variables.get(\"user_Ids\");\r",
+							"pm.variables.set(\"singleUserId\", userIds.shift());\r",
+							"\r",
+							"if(Array.isArray(userIds) && userIds.length>0){\r",
+							"    pm.execution.setNextRequest(\"2-Update A User\");\r",
+							"}\r",
+							"else{\r",
+							"    console.log(\"all users are updated\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"name\": \"Tester Code Decode\",\r\n\"status\":\"inactive\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BaseURL}}/public/v2/users/{{singleUserId}}"
+			},
+			"response": []
+		}
+	]
+}

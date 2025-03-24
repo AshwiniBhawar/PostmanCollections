@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "1ab74928-6fe6-484c-9aad-9c679079b95c",
+		"name": "ContactAPI_CollVariablesDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "1.LogIn User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{ContactAPIDemo_UserName}}\",\r\n    \"password\": \"{{ContactAPIDemo_Password}}\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPIDemo_BaseUrl}}/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "2.Get All Contacts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{vault:contactstoken}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPIDemo_BaseUrl}}/contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "3.Create a contact",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{vault:contactstoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"H\",\r\n    \"lastName\": \"Test\",\r\n    \"birthdate\": \"1970-01-01\",\r\n    \"email\": \"gtest@gmail.com\",\r\n    \"phone\": \"8005555555\",\r\n    \"street1\": \"1 Main St.\",\r\n    \"street2\": \"Apartment A\",\r\n    \"city\": \"Anytown\",\r\n    \"stateProvince\": \"KS\",\r\n    \"postalCode\": \"12345\",\r\n    \"country\": \"US\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPIDemo_BaseUrl}}/contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "4.Get a Contact",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{vault:contactstoken}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPIDemo_BaseUrl}}/contacts/67aa455dca61ec001343f713"
+			},
+			"response": []
+		},
+		{
+			"name": "5.Update a Contact_PUT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{vault:contactstoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"H\",\r\n    \"lastName\": \"Test\",\r\n    \"city\": \"Pune\",\r\n    \"email\": \"htest@gmail.com\"\r\n    \r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPIDemo_BaseUrl}}/contacts/67aa455dca61ec001343f713"
+			},
+			"response": []
+		},
+		{
+			"name": "6.Update a Contact_PATCH",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{vault:contactstoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\": \"8005554242\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPIDemo_BaseUrl}}/contacts/67a95fec567cec00133810fd"
+			},
+			"response": []
+		},
+		{
+			"name": "7.Delete a Contact",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{vault:contactstoken}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPIDemo_BaseUrl}}/contacts/67a95fec567cec00133810fd"
+			},
+			"response": []
+		},
+		{
+			"name": "8.Logout user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{ContactAPIDemo_BaseUrl}}/users/logout"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ContactAPIDemo_BaseUrl",
+			"value": "http://thinking-tester-contact-list.herokuapp.com",
+			"type": "string"
+		},
+		{
+			"key": "ContactAPIDemo_UserName",
+			"value": "bhawar.ashwini2892@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "ContactAPIDemo_Password",
+			"value": "tester1234",
+			"type": "string"
+		}
+	]
+}

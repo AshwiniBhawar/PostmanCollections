@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "54327a92-3972-4e5f-b042-ecc98c24f004",
+		"name": "ContactAPI_EnvVariablesDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "1.LogIn User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"const tokenID = response.token;",
+							"console.log(\"token id is : \" + tokenID);",
+							"pm.collectionVariables.set(\"ContactAPI_TokenID\",\"Bearer \"+tokenID);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{ContactAPI_Email}}\",\n    \"password\": \"{{ContactAPI_Password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPI_BaseUrl}}/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "2.Get All Contacts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPI_BaseUrl}}/contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "3.Create a Contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response= pm.response.json();\r",
+							"const id=response._id;\r",
+							"console.log(\"new user id is : \"+id);\r",
+							"pm.collectionVariables.set(\"ContactID\", id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{firstName}}\",\n    \"lastName\": \"{{lastName}}\",\n    \"city\": \"{{city}}\",\n    \"country\": \"{{country}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"stateProvince\": \"{{stateProvince}}\",\n    \"street1\": \"{{street1}}\",\n    \"street2\": \"{{street2}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPI_BaseUrl}}/contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "4.Get a Contact",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPI_BaseUrl}}/contacts/{{ContactID}}"
+			},
+			"response": []
+		},
+		{
+			"name": "5.Update a Contact_PUT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"dammm@gmail.com\",\n    \"firstName\": \"damm\",\n    \"lastName\": \"pamm\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPI_BaseUrl}}/contacts/{{ContactID}}"
+			},
+			"response": []
+		},
+		{
+			"name": "6.Update a Contact_PATCH",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lastName\": \"testing\",\n    \"email\": \"zainabtestmng@gmail.com\",\n    \"phone\": \"9090909090\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{ContactAPI_BaseUrl}}/contacts/{{ContactID}}"
+			},
+			"response": []
+		},
+		{
+			"name": "7.Delete a Contact",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPI_BaseUrl}}/contacts/{{ContactID}}"
+			},
+			"response": []
+		},
+		{
+			"name": "8.Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ContactAPI_TokenID}}",
+						"type": "text"
+					}
+				],
+				"url": "{{ContactAPI_BaseUrl}}/users/logout"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "ContactAPI_TokenID",
+			"value": ""
+		},
+		{
+			"key": "ContactID",
+			"value": ""
+		}
+	]
+}

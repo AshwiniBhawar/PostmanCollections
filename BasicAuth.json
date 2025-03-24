@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "e7a13ec3-8f51-4072-bdd0-00d7123b3dad",
+		"name": "BasicAuth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "5-UpdateABookingByID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate a token using auth API and fetch the token id from the response",
+							"pm.sendRequest({",
+							"        method: 'POST',",
+							"        url: pm.environment.get(\"baseURL\")+'/auth',",
+							"        header:{",
+							"            'Content-Type' : 'application/json'",
+							"        },",
+							"        body:{",
+							"            mode: 'raw',",
+							"            //javascript object to json",
+							"            raw: JSON.stringify({",
+							"                \"username\": pm.environment.get(\"username\"),",
+							"                \"password\": pm.environment.get(\"password\")",
+							"            })",
+							"        }",
+							"",
+							"}, function(error, response){",
+							"    if(error){",
+							"        console.log(error);",
+							"    }",
+							"    else{",
+							"        //JSON to JS Object: ",
+							"       const responseBody = JSON.parse(response.text());",
+							"        const tokenId =  responseBody.token;",
+							"        console.log(\"new token id : \"+ tokenId);",
+							"        pm.variables.set(\"new_token_id\", tokenId);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46cGFzc3dvcmQxMjM=",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Rahul\",\n    \"lastname\" : \"Yada\",\n    \"totalprice\" : 200,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"BF\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/booking/740"
+			},
+			"response": []
+		},
+		{
+			"name": "BasicAuth",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "#btoa('admin'+\":\"+'admin')-- encoded\r\n#atob('YWRtaW46YWRtaW4=')-- decoded\r\n#Basic YWRtaW46YWRtaW4= ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://the-internet.herokuapp.com/basic_auth"
+			},
+			"response": []
+		}
+	]
+}

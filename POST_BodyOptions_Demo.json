@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "030c7798-eb66-4133-a0ea-bc637e0e6653",
+		"name": "POST_BodyOptions_Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Ash",
+							"type": "text"
+						},
+						{
+							"key": "Id",
+							"value": "101",
+							"type": "text"
+						},
+						{
+							"key": "CSV",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": "httpbin.org/post"
+			},
+			"response": []
+		}
+	]
+}

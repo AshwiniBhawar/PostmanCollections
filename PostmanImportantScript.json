@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "1a87884b-4738-400d-802e-5dfd436a9d46",
+		"name": "Postman Important Script",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "1-AddHeadersUsingScripts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//1. single header:<Key-Value> pair\r",
+							"// pm.request.headers.add(\r",
+							"\r",
+							"//     {\r",
+							"//         key:'header1',\r",
+							"//         value:'adding header1'\r",
+							"//     }\r",
+							"// );\r",
+							"//2. multiple header:<Key-Value> pair\r",
+							"const headers= [\r",
+							"    {key:'header1',value:'adding header1'},\r",
+							"    {key:'header2',value:'adding header2'},\r",
+							"    {key:'header3',value:'adding header3'}\r",
+							"];\r",
+							"headers.forEach(h=>pm.request.headers.add(h));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "2-RemoveHeadersUsingScripts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// //1.single header remove\r",
+							"// pm.request.headers.remove('Header1');\r",
+							"\r",
+							"// //2. multiple header:<Key-Value> pair remove\r",
+							"const headers= [\r",
+							"    {key:'Header1'},\r",
+							"    {key:'Header2'},\r",
+							"    {key:'Header3'}\r",
+							"];\r",
+							"headers.forEach(h=>pm.request.headers.remove(h.key));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Header1",
+						"value": "Addedheader1",
+						"type": "text"
+					},
+					{
+						"key": "Header2",
+						"value": "Addedheader2",
+						"type": "text"
+					},
+					{
+						"key": "Header3",
+						"value": "Addedheader3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "3-UpdateAHeader",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//1.single header update\r",
+							"// pm.request.headers.upsert({\r",
+							"//     key: 'Header2',\r",
+							"//     value: 'addedheader2'\r",
+							"// });\r",
+							"\r",
+							"//2. multiple header:<Key-Value> pair update\r",
+							"const headers= [\r",
+							"    {key:'Header1', value:'addedheader1'},\r",
+							"    {key:'Header2', value:'addedheader2'},\r",
+							"    {key:'Header3', value:'addedheader3'}\r",
+							"];\r",
+							"headers.forEach(h=>pm.request.headers.upsert(h));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Header1",
+						"value": "AddedHeader1",
+						"type": "text"
+					}
+				],
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "4-Parse HTMP Response Using Cheerio API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//cheerio is use to pass a hmtl response\r",
+							"const cheerio= require('cheerio');\r",
+							"\r",
+							"pm.test('check that html body contains The Internet', function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"The Internet\");\r",
+							"});\r",
+							"\r",
+							"pm.test('check that html body contains login form', function(){\r",
+							"    const res= cheerio.load(pm.response.text());\r",
+							"    const loginform= res('[name=\"login\"]');\r",
+							"    const formActionAttr=loginform.attr(\"action\");\r",
+							"    console.log(\"form action=>\"+ formActionAttr);\r",
+							"    console.log(loginform.length);\r",
+							"    pm.expect(loginform.length).to.be.eql(1);\r",
+							"\r",
+							"    loginform.find('#username');\r",
+							"    pm.expect(loginform.find('#username').length).to.be.eql(1);\r",
+							"    pm.expect(loginform.find('#password').length).to.be.eql(1);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://the-internet.herokuapp.com/login"
+			},
+			"response": []
+		},
+		{
+			"name": "5-Add A Delay Before Response",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"setTimeout(() => {}, 10000);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "6.CreateMultipleUsersSendingJsonPayload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"requestJson\", JSON.stringify(pm.iterationData.toObject()));\r",
+							"\r",
+							"//data.json--->read--->\r",
+							"//pm.iterationData---json--->toObject---JS--->pure JSON Stringfy---JSON"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestJson}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://httpsbin.org/post"
+			},
+			"response": []
+		},
+		{
+			"name": "7-AddRequestBodyDyanamicallyWithRandomEmail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function getRandomString(){\r",
+							"    return Math.random().toString(36).substring(2);\r",
+							"}\r",
+							"\r",
+							"const emailID=\"apiuser_\"+getRandomString()+\"@yahoo.com\";\r",
+							"console.log(emailID);\r",
+							"\r",
+							"const rawBody=pm.request.body.raw;      //json\r",
+							"\r",
+							"//JSON to JS:\r",
+							"const requestBody= JSON.parse(rawBody);\r",
+							"console.log(requestBody);//without email\r",
+							"requestBody.email=emailID;\r",
+							"console.log(requestBody);//with email\r",
+							"pm.request.body.raw=requestBody;\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ram\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "8-AddRequestBodyDyanamicallyWithRandomEmailAndName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//Email\r",
+							"function getRandomString(){\r",
+							"    return Math.random().toString(36).substring(2);\r",
+							"}\r",
+							"\r",
+							"const emailID=\"apiuser_\"+getRandomString()+\"@yahoo.com\";\r",
+							"console.log(emailID);\r",
+							"\r",
+							"// Array of example first and last names\r",
+							"const firstNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eva', 'Fay', 'George', 'Helen', 'Igor', 'Jack'];\r",
+							"const lastNames = ['Smith', 'Johnson', 'Brown', 'Taylor', 'Lee', 'Miller', 'Davis', 'Martinez', 'Clark', 'Lopez'];\r",
+							"\r",
+							"// Function to generate a random name\r",
+							"function getRandomName() {\r",
+							"    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];\r",
+							"    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];\r",
+							"    const firstLastName=firstName+\" \"+lastName;\r",
+							"    return firstLastName;\r",
+							"}\r",
+							"\r",
+							"const name=getRandomName();\r",
+							"console.log(name);\r",
+							"\r",
+							"const rawBody=pm.request.body.raw;      //json\r",
+							"\r",
+							"//JSON to JS:\r",
+							"const requestBody= JSON.parse(rawBody);\r",
+							"console.log(requestBody);//without email\r",
+							"requestBody.email=emailID;\r",
+							"requestBody.name=name;\r",
+							"console.log(requestBody);//with email\r",
+							"pm.request.body.raw=requestBody;\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BaseURL}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "9.FetchURLFromResponseAndUseItInAPICall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseData = pm.response.json(); // Parse the response JSON\r",
+							"const urlData = responseData.json.urls; // Access the 'urls' property\r",
+							"\r",
+							"Object.keys(urlData).forEach(e => {\r",
+							"    // Create a unique test name for each URL\r",
+							"    pm.test('Validate Url launch: '+urlData[e], function() {\r",
+							"        pm.sendRequest({\r",
+							"            url: urlData[e],  // Use the URL from the `urls` object\r",
+							"            method: 'GET'\r",
+							"        }, (error, response) => {\r",
+							"            if (error) {\r",
+							"                console.log(\"Error with URL:\", urlData[e]);\r",
+							"                console.log(\"Error:\", error);\r",
+							"            } else {\r",
+							"                console.log(\"Status Code for URL:\", urlData[e], \"is:\", response.code);\r",
+							"                console.log(\"Response Text:\", response.text());\r",
+							"                // Fail if status code is not 200\r",
+							"                pm.test(\"Status code validation: \" + urlData[e], function() {\r",
+							"                    pm.expect(response.code).to.eql(200); // Fail the test if status code is not 200\r",
+							"                });\r",
+							"            }\r",
+							"            })\r",
+							"        })\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productname\" : \"macbookpro\",\r\n    \"urls\":{\r\n        \"u1\": \"https://reqres.in/api/users?page=2\",\r\n        \"u2\": \"https://reqres.in/api/users/2\",\r\n        \"u3\": \"https://reqres.in/api/unknown\",\r\n        \"u4\": \"https://gorest.co.in/public/v2/users\",\r\n        \"u5\": \"http://www.deadlinkcity.com/error-page.asp?e=411\",\r\n        \"u6\": \"http://www.deadlinkcity.com/nonexistentpage.txt\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://httpbin.org/post"
+			},
+			"response": []
+		}
+	]
+}

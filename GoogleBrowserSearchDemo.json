@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "ce8df6b0-9945-4fe7-804b-b175759ae400",
+		"name": "GoogleBrowserSearchDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "1-LaunchBrowser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response=pm.response.json();\r",
+							"const details=response.value;\r",
+							"const sessionid=details.sessionId;\r",
+							"pm.collectionVariables.set(\"sessionID\", sessionid);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"capabilities\": {\r\n        \"alwaysMatch\": {\r\n            \"browserName\": \"chrome\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session"
+			},
+			"response": []
+		},
+		{
+			"name": "2-EnterUrl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://www.google.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/url"
+			},
+			"response": []
+		},
+		{
+			"name": "3-FindElement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"using\":\"xpath\",\r\n    \"value\":\"//textarea[@name='q']\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "4-SendKeys",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"Selenium\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.A80069EE3800FCA9C8B9078FAC505276.d.3AA1C336EBEDF551E1BE43CD6B54F823.e.1/value"
+			},
+			"response": []
+		},
+		{
+			"name": "5-Find_FirstElement_From_TheList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"using\": \"xpath\",\r\n    \"value\": \"//ul[@role='listbox']//div[@role='presentation']/span\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "6-ClickElement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.A80069EE3800FCA9C8B9078FAC505276.d.3AA1C336EBEDF551E1BE43CD6B54F823.e.36/click"
+			},
+			"response": []
+		},
+		{
+			"name": "7-FindLanguageLink",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"using\": \"link text\",\n  \"value\": \"ਪੰਜਾਬੀ\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "8-ClickOnLanguageLink",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.8CFF911D8184CB5DDA563F9FF94C22F3.d.D440497D7D37497298CB1BC587CC9DE3.e.16/click"
+			},
+			"response": []
+		},
+		{
+			"name": "9-CloseBrowser",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sessionid",
+			"value": ""
+		},
+		{
+			"key": "sessionID",
+			"value": ""
+		}
+	]
+}

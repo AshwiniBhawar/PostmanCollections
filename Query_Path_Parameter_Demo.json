@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "382b2809-35d9-4f49-a916-d11e9725ac7c",
+		"name": "Query_Path_Parameter_Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "Path_Para",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ergast.com/:apiurl/:year/:resource",
+					"protocol": "http",
+					"host": [
+						"ergast",
+						"com"
+					],
+					"path": [
+						":apiurl",
+						":year",
+						":resource"
+					],
+					"variable": [
+						{
+							"key": "apiurl",
+							"value": "api/f1"
+						},
+						{
+							"key": "year",
+							"value": "2015"
+						},
+						{
+							"key": "resource",
+							"value": "drivers.json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query_Para",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users?name=bhushan&gender=male&status=active",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "bhushan"
+						},
+						{
+							"key": "gender",
+							"value": "male"
+						},
+						{
+							"key": "status",
+							"value": "active"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query&Path_Para",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://tutorialsninja.com/:application/index.php?route=account/register",
+					"protocol": "https",
+					"host": [
+						"tutorialsninja",
+						"com"
+					],
+					"path": [
+						":application",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "route",
+							"value": "account/register"
+						}
+					],
+					"variable": [
+						{
+							"key": "application",
+							"value": "demo"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

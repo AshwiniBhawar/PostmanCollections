@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "36e26443-4e5a-4014-997f-d5831298fc50",
+		"name": "SeleniumAPI_Qafox.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32521370"
+	},
+	"item": [
+		{
+			"name": "LaunchBrowser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response=pm.response.json();\r",
+							"const details=response.value;\r",
+							"const sessionid=details.sessionId;\r",
+							"pm.collectionVariables.set(\"sessionID\", sessionid);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"capabilities\": {\r\n        \"alwaysMatch\": {\r\n            \"browserName\": \"chrome\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://10.0.0.175:4444/session"
+			},
+			"response": []
+		},
+		{
+			"name": "EnterUrl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://tutorialsninja.com/demo/index.php?route=account/login\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/url"
+			},
+			"response": []
+		},
+		{
+			"name": "FindElement_Username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"using\":\"xpath\",\r\n    \"value\":\"//input[@name='email']\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "SendKeys_Username",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"bhawar.ashwini2892@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.14550321A81535F4BBAE49514A2E06BE.d.5A592EB99E5412C9B869C19D9923F2C2.e.22/value"
+			},
+			"response": []
+		},
+		{
+			"name": "FindElement_Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"using\": \"xpath\",\r\n    \"value\": \"//input[@name='password']\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "SendKeys_Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"tester1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.14550321A81535F4BBAE49514A2E06BE.d.5A592EB99E5412C9B869C19D9923F2C2.e.24/value"
+			},
+			"response": []
+		},
+		{
+			"name": "FindElement_Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"using\":\"xpath\",\r\n    \"value\":\"//input[@type='submit']\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "ClickLogin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.14550321A81535F4BBAE49514A2E06BE.d.5A592EB99E5412C9B869C19D9923F2C2.e.31/click"
+			},
+			"response": []
+		},
+		{
+			"name": "FindElement_Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"using\":\"xpath\",\r\n    \"value\":\"//a[normalize-space()='Logout']\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element"
+			},
+			"response": []
+		},
+		{
+			"name": "ClickLogout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4444/session/{{sessionID}}/element/f.14550321A81535F4BBAE49514A2E06BE.d.C93F082A903EB4166D1CAD666141D525.e.63/click"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sessionID",
+			"value": ""
+		}
+	]
+}
