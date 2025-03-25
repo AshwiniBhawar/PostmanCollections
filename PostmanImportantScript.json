@@ -441,6 +441,103 @@
 				"url": "https://httpbin.org/post"
 			},
 			"response": []
+		},
+		{
+			"name": "10.GetDataFromJsonArrayAndAssert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resData=pm.response.json();\r",
+							"const filtersData=resData.json.filters;\r",
+							"console.log(\"filter data==>\",filtersData);\r",
+							"\r",
+							"const vendorData=filtersData.find(e=>e.name==\"VENDOR\");\r",
+							"console.log(vendorData);\r",
+							"\r",
+							"pm.test('check vendor data', function(){\r",
+							"    pm.expect(vendorData).to.be.exist;\r",
+							"    pm.expect(vendorData.isAllowed).to.be.false;\r",
+							"    pm.expect(vendorData.name).to.be.eql(\"VENDOR\");\r",
+							"    pm.expect(vendorData.id).to.be.eql(101);\r",
+							"    pm.expect(filtersData).to.be.an(\"array\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyId\": 10101,\r\n    \"regionId\": 36554,\r\n    \"filters\": [\r\n        {\r\n            \"id\": 101,\r\n            \"name\": \"VENDOR\",\r\n            \"isAllowed\": false\r\n        },\r\n        {\r\n            \"id\": 102,\r\n            \"name\": \"COUNTRY\",\r\n            \"isAllowed\": true\r\n        },\r\n        {\r\n            \"id\": 103,\r\n            \"name\": \"MANUFACTURER\",\r\n            \"isAllowed\": false\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://httpbin.org/post"
+			},
+			"response": []
+		},
+		{
+			"name": "11.ParseComplexJsonArray",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resData=pm.response.json().json;\r",
+							"console.log(resData);\r",
+							"\r",
+							"let filterData=[];\r",
+							"resData.forEach(company=>{\r",
+							"    company.filters.forEach(filter=>{\r",
+							"        filterData.push(filter);\r",
+							"    })\r",
+							"})\r",
+							"console.log(filterData);\r",
+							"\r",
+							"const countryData=filterData.filter(e=>e.name=='COUNTRY');\r",
+							"console.log(countryData);\r",
+							"\r",
+							"pm.test('check country data from country filters', function(){\r",
+							"    countryData.forEach(e=>{\r",
+							"    pm.expect(countryData).to.be.exist;\r",
+							"    pm.expect(countryData).to.be.an(\"array\");\r",
+							"    pm.expect(e.isAllowed).to.be.true;\r",
+							"    pm.expect(e.name).to.be.eql(\"COUNTRY\");\r",
+							"       \r",
+							"    })\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"companyId\": 10101,\r\n        \"regionId\": 36554,\r\n        \"filters\": [\r\n            {\r\n                \"id\": 101,\r\n                \"name\": \"VENDOR\",\r\n                \"isAllowed\": false\r\n            },\r\n            {\r\n                \"id\": 102,\r\n                \"name\": \"COUNTRY\",\r\n                \"isAllowed\": true\r\n            },\r\n            {\r\n                \"id\": 103,\r\n                \"name\": \"MANUFACTURER\",\r\n                \"isAllowed\": false\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"companyId\": 10102,\r\n        \"regionId\": 36555,\r\n        \"filters\": [\r\n            {\r\n                \"id\": 101,\r\n                \"name\": \"VENDOR\",\r\n                \"isAllowed\": false\r\n            },\r\n            {\r\n                \"id\": 102,\r\n                \"name\": \"COUNTRY\",\r\n                \"isAllowed\": true\r\n            },\r\n            {\r\n                \"id\": 103,\r\n                \"name\": \"MANUFACTURER\",\r\n                \"isAllowed\": false\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"companyId\": 10103,\r\n        \"regionId\": 36556,\r\n        \"filters\": [\r\n            {\r\n                \"id\": 104,\r\n                \"name\": \"CATEGORY\",\r\n                \"isAllowed\": true\r\n            },\r\n            {\r\n                \"id\": 105,\r\n                \"name\": \"BRAND\",\r\n                \"isAllowed\": false\r\n            },\r\n            {\r\n                \"id\": 106,\r\n                \"name\": \"TYPE\",\r\n                \"isAllowed\": true\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"companyId\": 10104,\r\n        \"regionId\": 36557,\r\n        \"filters\": [\r\n            {\r\n                \"id\": 107,\r\n                \"name\": \"PRICE\",\r\n                \"isAllowed\": true\r\n            },\r\n            {\r\n                \"id\": 108,\r\n                \"name\": \"RATING\",\r\n                \"isAllowed\": false\r\n            },\r\n            {\r\n                \"id\": 109,\r\n                \"name\": \"AVAILABILITY\",\r\n                \"isAllowed\": true\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"companyId\": 10105,\r\n        \"regionId\": 36558,\r\n        \"filters\": [\r\n            {\r\n                \"id\": 110,\r\n                \"name\": \"DISCOUNT\",\r\n                \"isAllowed\": true\r\n            },\r\n            {\r\n                \"id\": 111,\r\n                \"name\": \"PROMOTION\",\r\n                \"isAllowed\": false\r\n            },\r\n            {\r\n                \"id\": 112,\r\n                \"name\": \"NEW_ARRIVAL\",\r\n                \"isAllowed\": true\r\n            }\r\n        ]\r\n    }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://httpbin.org/post"
+			},
+			"response": []
 		}
 	]
 }

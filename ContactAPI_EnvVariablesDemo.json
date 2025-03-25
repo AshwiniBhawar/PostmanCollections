@@ -111,7 +111,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"birthdate\": \"{{birthdate}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{firstName}}\",\n    \"lastName\": \"{{lastName}}\",\n    \"city\": \"{{city}}\",\n    \"country\": \"{{country}}\",\n    \"postalCode\": \"{{postalCode}}\",\n    \"stateProvince\": \"{{stateProvince}}\",\n    \"street1\": \"{{street1}}\",\n    \"street2\": \"{{street2}}\"\n}",
+					"raw": "{\n    \"birthdate\": \"1999-01-01\",\n    \"email\": \"{{$randomEmail}}\",\n    \"phone\": \"9898987778\",\n    \"firstName\": \"you\",\n    \"lastName\": \"we\",\n    \"city\": \"Bangalore\",\n    \"country\": \"India\",\n    \"postalCode\": 98989,\n    \"stateProvince\": \"KA\",\n    \"street1\": \"stree 1\",\n    \"street2\": \"street 2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
