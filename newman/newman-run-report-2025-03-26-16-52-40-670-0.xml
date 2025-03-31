@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="SimpleCollection" tests="2" time="1.339">
-  <testsuite name="1.GetAllUsers" id="dc7c6ac4-f413-4195-bbd8-5b424349f346" timestamp="2025-03-26T16:52:39.089Z" tests="0" failures="0" errors="0" time="1.016"/>
-  <testsuite name="2.GetAUserById" id="44e9bfa4-fa24-4e8c-81c8-8cd4c6d5c76d" timestamp="2025-03-26T16:52:39.089Z" tests="0" failures="0" errors="0" time="0.323"/>
-</testsuites>
