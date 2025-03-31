@@ -16,7 +16,7 @@ pipeline {
 		
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/AshwiniBhawar/GoRestAPICiCD'
+                git url: 'https://github.com/AshwiniBhawar/PostmanCollections'
             }
         }
 
