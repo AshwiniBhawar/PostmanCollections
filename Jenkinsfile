@@ -1,7 +1,14 @@
 pipeline {
     agent any
     stages {
-
+	stage('Clean Workspace') {
+            steps {
+                script {
+                    // Clean the workspace before running the job
+                    cleanWs()
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo "Building the war"
